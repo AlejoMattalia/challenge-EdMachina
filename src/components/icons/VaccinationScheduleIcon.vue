@@ -1,0 +1,85 @@
+<script setup>
+defineProps({
+  color: {
+    type: String,
+    default: '#3788E5', // Color azul por defecto
+  },
+  size: {
+    type: [String, Number],
+    default: 24, // Tamaño por defecto 24x24
+  },
+})
+</script>
+
+<template>
+  <svg
+    :width="size"
+    :height="size"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <mask
+      id="mask0_2184_631"
+      style="mask-type: luminance"
+      maskUnits="userSpaceOnUse"
+      x="0"
+      y="0"
+      :width="size"
+      :height="size"
+    >
+      <path d="M24 -1.52588e-05H0V24H24V-1.52588e-05Z" fill="white" />
+    </mask>
+    <g mask="url(#mask0_2184_631)">
+      <path
+        d="M17 2.99998L21 6.99998"
+        :stroke="color"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M19 4.99998L14.5 9.49998"
+        :stroke="color"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M11.5 6.49998L17.5 12.5"
+        :stroke="color"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M16.5 11.5L10 18H6V14L12.5 7.49998"
+        :stroke="color"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M7.5 12.5L9 14"
+        :stroke="color"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M10.5 9.49998L12 11"
+        :stroke="color"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <path
+        d="M3 21L6 18"
+        :stroke="color"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </g>
+  </svg>
+</template>
