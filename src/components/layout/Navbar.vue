@@ -1,28 +1,27 @@
 <script setup lang="ts">
 import { colors } from '@/theme/Colors'
-import QuestionIcon from '../icons/QuestionIcon.vue'
-import NotificationIcon from '../icons/NotificationIcon.vue'
+import questionIcon from '../icons/QuestionIcon.vue'
+import notificationIcon from '../icons/NotificationIcon.vue'
 import Button from '../common/Button.vue'
-import DocumentationIcon from '../icons/DocumentationIcon.vue'
-import Search from '../common/Search.vue'
+import SearchPage from '../common/SearchPage.vue'
 </script>
 
 <template>
   <header :style="{ borderBottom: `1px solid ${colors.border}` }">
-    <Search />
+    <SearchPage />
 
     <div class="navbar-buttons">
-      <QuestionIcon color="#0B1C33" size="24" />
-      <NotificationIcon color="#0B1C33" size="24" />
+      <questionIcon color="#0B1C33" size="24" />
+      <notificationIcon color="#0B1C33" size="24" />
 
-      <Button text="Add widget" bgColor="#3788E5" height="38px" selected="true" />
+      <Button text="Add widget" bgColor="#3788E5" height="38px" :selected="true" />
     </div>
   </header>
 </template>
 
 <style scoped>
 header {
-  z-index: 100;
+  z-index: 300;
   padding-left: 320px;
   padding-right: 30px;
   position: fixed;

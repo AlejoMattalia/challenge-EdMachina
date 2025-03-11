@@ -1,10 +1,9 @@
-<script setup>
-defineProps({
-  count: {
-    type: Number,
-    default: 0,
-  },
-})
+<script setup lang="ts">
+import { defineProps } from 'vue'
+
+defineProps<{
+  count: number
+}>()
 </script>
 
 <template>

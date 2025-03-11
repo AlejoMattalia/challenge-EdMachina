@@ -19,10 +19,12 @@ const route = useRoute()
 
 <template>
   <aside class="sidebar" :style="{ borderRight: `1px solid ${colors.border}` }">
-    <header class="sidebar-header">
-      <pet-icon color="#3788E5" size="24" />
-      <h1 :style="{ color: colors.textColor }">PetCare</h1>
-    </header>
+    <router-link to="/" :style="{ textDecoration: 'none' }">
+      <header class="sidebar-header">
+        <pet-icon color="#3788E5" size="24" />
+        <h1 :style="{ color: colors.textColor }">PetCare</h1>
+      </header>
+    </router-link>
 
     <main class="sidebar-main">
       <p>MENU</p>
@@ -167,7 +169,7 @@ const route = useRoute()
   padding-top: 35px;
   overflow-y: auto;
   overflow-x: hidden;
-  z-index: 200;
+  z-index: 400;
   position: relative;
   background-color: #fff;
 

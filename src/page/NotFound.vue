@@ -12,7 +12,6 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  background-color: #fff;
   text-align: center;
   font-family: 'Arial', sans-serif;
   padding: 20px;

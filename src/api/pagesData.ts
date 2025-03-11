@@ -1,4 +1,6 @@
-export const pages = [
+import type { Page } from '@/types/pageInterface'
+
+export const pages: Page[] = [
   {
     id: 'dashboard',
     name: 'Dashboard',

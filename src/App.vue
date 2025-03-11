@@ -26,5 +26,8 @@ import Navbar from './components/layout/Navbar.vue'
 .content {
   margin-top: 96px;
   width: 100%;
+  min-height: calc(100vh - 96px);
+  background-color: #f2f5fa;
+  padding: 20px;
 }
 </style>

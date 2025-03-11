@@ -1,16 +1,9 @@
-<script setup>
-defineProps({
-  color: {
-    type: String,
-    default: '#3788E5',
-  },
-  size: {
-    type: [String, Number],
-    default: 24,
-  },
-})
+<script setup lang="ts">
+defineProps<{
+  color: string
+  size: string | number
+}>()
 </script>
-
 <template>
   <svg
     :width="size"

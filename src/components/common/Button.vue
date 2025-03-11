@@ -1,90 +1,40 @@
-<script setup>
+<script setup lang="ts">
+import { defineProps } from 'vue'
 import counter from './Counter.vue'
 import persons from '@/assets/img/persons.png'
 
-defineProps({
-  text: {
-    type: String,
-    required: true,
-  },
-  redirect: {
-    type: String,
-    default: null, // Ahora es opcional
-  },
-  bgColor: {
-    type: String,
-    default: 'primary',
-  },
-  selected: {
-    type: Boolean,
-    default: false,
-  },
-  width: {
-    type: String,
-    default: '100%',
-  },
-  height: {
-    type: String,
-    default: '40px',
-  },
-  icon: {
-    type: Object,
-    default: null, // Ahora es opcional
-  },
-  iconColor: {
-    type: String,
-    default: '#3788E5',
-  },
-  iconSize: {
-    type: [String, Number],
-    default: 24,
-  },
-  counterView: {
-    type: Boolean,
-    default: false,
-  },
-  imageView: {
-    type: Boolean,
-    default: false,
-  },
-})
+defineProps<{
+  text: string
+  redirect?: string | null
+  bgColor?: string
+  selected?: boolean
+  width?: string
+  height?: string
+  icon?: Record<string, any> | null
+  iconColor?: string
+  iconSize?: string | number
+  counterView?: boolean
+  imageView?: boolean
+}>()
 </script>
 
 <template>
   <component
     :is="redirect ? 'RouterLink' : 'none'"
     v-bind="redirect ? { to: redirect, style: { textDecoration: 'none' } } : {}"
-    :style="{ textDecoration: 'none' }"
   >
     <button
+      :class="{ selected }"
       :style="{
         width: width,
         height: height,
-        borderRadius: '14px',
-        fontSize: '16px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'start',
-        border: 'none',
-        paddingLeft: '25px',
-        paddingRight: '25px',
         backgroundColor: selected ? bgColor : 'transparent',
         color: selected ? '#fff' : 'rgba(11, 28, 51, 0.7)',
-        transition: 'all 0.3s ease',
-        cursor: 'pointer',
       }"
     >
-      <component
-        v-if="icon"
-        :is="icon"
-        :color="iconColor"
-        :size="iconSize"
-        :style="{ marginRight: '8px', transition: 'all 0.3s ease' }"
-      />
-
+      <component v-if="icon" :is="icon" :color="iconColor" :size="iconSize" class="icon" />
       {{ text }}
-
-      <div :style="{ marginLeft: 'auto', display: 'flex', alignItems: 'center' }">
+      <div class="right-content">
         <counter v-if="counterView" :count="2" />
         <img v-if="imageView" :src="persons" alt="" />
       </div>
@@ -94,15 +44,35 @@ defineProps({
 
 <style scoped>
 button {
+  border-radius: 8px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border: none;
+  padding-left: 25px;
+  padding-right: 25px;
+  transition: all 0.3s ease;
+  cursor: pointer;
   outline: none;
-}
 
-button:hover {
-  background-color: rgba(55, 136, 229, 0.2);
-  transform: scale(1.05);
-}
+  &:hover {
+    background-color: rgba(55, 136, 229, 0.2);
+    transform: scale(1.05);
+  }
 
-button:active {
-  transform: scale(0.98);
+  &:active {
+    transform: scale(0.98);
+  }
+  .icon {
+    margin-right: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .right-content {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+  }
 }
 </style>
