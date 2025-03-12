@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { colors } from '@/theme/Colors'
 import Select from '../common/Select.vue'
-import { defineProps, ref, onMounted, computed } from 'vue'
-import type { Activity } from '@/types/ActivityInterface'
+import { defineProps, ref, onMounted, computed, watchEffect } from 'vue'
+import type { DataInterface } from '@/types/ActivityInterface'
 
-const { activities, title, color } = defineProps<{
+const { data, title, color } = defineProps<{
   title: string
   color: string
-  activities: Activity[]
+  data: DataInterface[]
 }>()
 
 const progress = ref<number>(0)
@@ -16,16 +16,17 @@ const selectedValue = ref<string>('Weekly')
 // Función para seleccionar actividad
 const selectActivity = (text: string): void => {
   selectedValue.value = text
-  progress.value = activities.find((activity) => activity.text === text)?.percentage || 0
+  progress.value = data.find((activity) => activity.text === text)?.percentage || 0
 }
 
 // Asignar el valor inicial cuando el componente se monta
-onMounted(() => {
-  progress.value =
-    activities.find((activity) => activity.text === selectedValue.value)?.percentage || 0
+watchEffect(() => {
+  if (data.length > 0) {
+    progress.value = data.find((activity) => activity.text === selectedValue.value)?.percentage || 0
+  }
 })
 
-const options = computed(() => activities.map((activity) => activity.text))
+const options = computed(() => data.map((activity) => activity.text))
 </script>
 
 <template>
@@ -33,7 +34,7 @@ const options = computed(() => activities.map((activity) => activity.text))
     <header class="percentage-cards-header">
       <p>{{ title }}</p>
       <Select
-        :data="activities"
+        :data="data"
         :options="options"
         :selectOption="selectActivity"
         :selectedValue="selectedValue"

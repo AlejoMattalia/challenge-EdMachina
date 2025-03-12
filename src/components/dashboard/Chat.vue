@@ -1,16 +1,24 @@
 <script setup lang="ts">
 import { colors } from '@/theme/Colors'
-import { chatData } from '@/api/chatData'
 import ChatCard from '../common/ChatCard.vue'
+import { useFetch } from '@/composables/useFetch'
+import type { ChatMessage } from '@/types/ChatInterface'
+import Error from '../common/Error.vue'
+
+const { data, error, loading } = useFetch<ChatMessage>('chat')
 </script>
 
 <template>
-  <section class="chat" :style="{ border: `1px solid ${colors.border}` }">
+  <n-skeleton v-if="loading" height="378px" width="620px" :sharp="false" />
+  <section v-else class="chat" :style="{ border: `1px solid ${colors.border}` }">
     <header class="vaccination-header">
       <p>CHAT</p>
     </header>
 
-    <div class="chat-container" v-for="chat in chatData" :key="chat.id">
+    <div v-if="error">
+      <Error :error="error" />
+    </div>
+    <div v-else class="chat-container" v-for="chat in data" :key="chat.id">
       <ChatCard :data="chat" />
     </div>
   </section>

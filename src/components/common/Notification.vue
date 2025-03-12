@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import NotificationIcon from '../icons/NotificationIcon.vue'
-import { notificationData } from '@/api/notificationData'
+import type { Notification } from '@/types/NotificationInterface'
+import { useFetch } from '@/composables/useFetch'
+import Error from './Error.vue'
 
 const openDropdown = ref<boolean>(false)
+
+const { data, error, loading } = useFetch<Notification>('notification')
 </script>
 
 <template>
@@ -13,10 +17,15 @@ const openDropdown = ref<boolean>(false)
     @click="openDropdown = !openDropdown"
     style="cursor: pointer"
   />
-
   <div v-show="openDropdown" class="dropdown">
-    <ul>
-      <li v-for="notification in notificationData" :key="notification.id">
+    <div v-if="loading" class="container-loading">
+      <n-spin size="large" />
+    </div>
+    <div v-else-if="error">
+      <Error :error="error" />
+    </div>
+    <ul v-else>
+      <li v-for="notification in data" :key="notification.id">
         <span class="notification-message">{{ notification.message }}</span>
       </li>
     </ul>
@@ -35,28 +44,37 @@ const openDropdown = ref<boolean>(false)
   width: 200px;
   padding: 10px;
   z-index: 1000;
-}
+  height: 138px;
 
-.dropdown ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 
-.dropdown ul li {
-  padding: 8px 10px;
-  cursor: pointer;
-}
+    li {
+      padding: 8px 10px;
+      cursor: pointer;
 
-.dropdown ul li:hover {
-  background-color: #f0f0f0;
-}
+      &:hover {
+        background-color: #f0f0f0;
+      }
 
-.notification-message {
-  display: block;
-  width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+      .notification-message {
+        display: block;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  .container-loading {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 </style>
