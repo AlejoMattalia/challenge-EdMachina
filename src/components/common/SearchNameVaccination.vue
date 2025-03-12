@@ -24,14 +24,20 @@ defineProps<{
     </transition>
   </div>
 
-  <SearchIcon class="search-icon" color="#0B1C33" size="20" @click="viewInput = !viewInput" />
+  <SearchIcon
+    class="search-icon"
+    color="#0B1C33"
+    size="20"
+    @click="viewInput = !viewInput"
+    style="cursor: pointer"
+  />
 </template>
 
 <style scoped>
 .search-container {
   position: relative;
   width: 100%;
-  max-width: 220px;
+  max-width: 180px;
 
   .search-icon {
     position: absolute;
@@ -50,6 +56,8 @@ defineProps<{
     box-shadow: none;
     padding-left: 15px;
     font-size: 16px;
+    position: relative;
+    left: 10px;
   }
 }
 </style>

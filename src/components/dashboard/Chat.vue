@@ -18,11 +18,12 @@ import ChatCard from '../common/ChatCard.vue'
 
 <style>
 .chat {
-  width: 676px;
+  width: 620px;
   border: 1px solid red;
   background-color: #fff;
   border-radius: 16px;
   padding: 30px;
+  height: 378px;
 
   .vaccination-header {
     display: flex;
@@ -36,7 +37,7 @@ import ChatCard from '../common/ChatCard.vue'
   }
 
   .chat-container {
-    margin-top: 15px;
+    margin-top: 20px;
   }
 }
 </style>

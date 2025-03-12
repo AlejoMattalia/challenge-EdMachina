@@ -21,6 +21,7 @@ import Navbar from './components/layout/Navbar.vue'
 <style scoped>
 .main {
   display: flex;
+  height: 100vh;
 }
 
 .content {
@@ -29,5 +30,6 @@ import Navbar from './components/layout/Navbar.vue'
   min-height: calc(100vh - 96px);
   background-color: #f2f5fa;
   padding: 20px;
+  overflow-y: auto;
 }
 </style>

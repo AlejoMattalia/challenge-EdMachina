@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { colors } from '@/theme/Colors'
 import questionIcon from '../icons/QuestionIcon.vue'
-import notificationIcon from '../icons/NotificationIcon.vue'
 import Button from '../common/Button.vue'
 import SearchPage from '../common/SearchPage.vue'
+import Notification from '../common/Notification.vue'
 </script>
 
 <template>
@@ -11,8 +11,9 @@ import SearchPage from '../common/SearchPage.vue'
     <SearchPage />
 
     <div class="navbar-buttons">
-      <questionIcon color="#0B1C33" size="24" />
-      <notificationIcon color="#0B1C33" size="24" />
+      <questionIcon color="#0B1C33" size="24" style="cursor: pointer" />
+
+      <Notification />
 
       <Button text="Add widget" bgColor="#3788E5" height="38px" :selected="true" />
     </div>

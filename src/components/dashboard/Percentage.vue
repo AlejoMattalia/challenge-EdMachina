@@ -14,9 +14,10 @@ import PercentageCards from '../common/PercentageCard.vue'
 <style scoped>
 .percentage {
   display: flex;
-  max-width: 882px;
+  max-width: 800px;
   width: 100%;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 </style>

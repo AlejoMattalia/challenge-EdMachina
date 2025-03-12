@@ -60,7 +60,8 @@ const options = computed(() => activities.map((activity) => activity.text))
 
 <style scoped>
 .percentage-cards {
-  width: 278px;
+  max-width: 268px;
+  width: 100%;
   height: 330px;
   background-color: #fff;
   border-radius: 16px;
@@ -68,7 +69,7 @@ const options = computed(() => activities.map((activity) => activity.text))
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 30px;
+  padding: 20px;
   gap: 30px;
 
   .percentage-cards-header {

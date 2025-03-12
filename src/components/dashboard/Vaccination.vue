@@ -53,7 +53,7 @@ const searchForName = (name: string) => {
 
 <style>
 .vaccination {
-  width: 676px;
+  width: 620px;
   border: 1px solid red;
   height: 531px;
   background-color: #fff;

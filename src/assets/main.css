@@ -4,3 +4,14 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  overflow: hidden; /* Evita el scroll en la página */
+}
+
+.apexcharts-toolbar {
+  display: none !important;
+}

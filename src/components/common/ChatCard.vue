@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import { colors } from '@/theme/Colors'
 import type { ChatMessage } from '@/types/ChatInterface'
+import { ref } from 'vue'
+import Counter from './Counter.vue'
 
 defineProps<{
   data: ChatMessage
 }>()
+
+const showModal = ref<boolean>(false)
 </script>
 
 <template>
-  <section class="chat-card">
+  <section class="chat-card" @click="showModal = true">
     <div class="image-container">
       <img :src="data.img" alt="User profile" />
       <span
@@ -27,7 +31,29 @@ defineProps<{
         <p :title="data.message">{{ data.message }}</p>
       </div>
     </main>
+
+    <div class="counter-container">
+      <Counter v-if="data.unansweredMessage > 0" :count="data.unansweredMessage" />
+    </div>
   </section>
+
+  <n-modal v-model:show="showModal">
+    <n-card style="width: 600px" :bordered="false" size="huge" role="dialog" aria-modal="true">
+      <template #header>
+        <div class="modal-header">
+          <div class="modal-info">
+            <img :src="data.img" alt="User profile" class="modal-img" />
+            <span class="modal-name">{{ data.name }}</span>
+          </div>
+          <p class="date">{{ data.date }}</p>
+        </div>
+      </template>
+
+      <p class="modal-message">
+        {{ data.message }}
+      </p>
+    </n-card>
+  </n-modal>
 </template>
 
 <style scoped>
@@ -39,6 +65,7 @@ defineProps<{
   justify-content: start;
   padding-right: 10px;
   border-radius: 8px;
+  position: relative;
 
   &:hover {
     background-color: rgba(0, 0, 0, 0.05);
@@ -98,7 +125,7 @@ defineProps<{
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      width: 500px;
+      width: 430px;
 
       p {
         font-size: 14px;
@@ -111,5 +138,45 @@ defineProps<{
       }
     }
   }
+  .counter-container {
+    position: absolute;
+    right: 8px;
+    bottom: 3px;
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  .modal-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .modal-img {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+    }
+
+    .modal-name {
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+  }
+
+  .date {
+    color: rgba(11, 28, 51, 0.7);
+  }
+}
+
+.modal-message {
+  font-size: 16px;
+  position: relative;
+  bottom: 10px;
+  color: rgba(11, 28, 51, 0.7);
 }
 </style>
