@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { colors } from '@/theme/Colors'
 import PetIcon from '@/components/icons/PetIcon.vue'
 import DashboardIcon from '../icons/DashboardIcon.vue'
 import FootIcon from '../icons/FootIcon.vue'
 import Button from '@/components/common/Button.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import HealthMonitoringIcon from '../icons/healthMonitoringIcon.vue'
 import VaccinationScheduleIcon from '../icons/VaccinationScheduleIcon.vue'
 import ChatIcon from '../icons/ChatIcon.vue'
@@ -15,6 +15,12 @@ import LogOutIcon from '../icons/LogOutIcon.vue'
 
 // Obtener el valor de la ruta actual
 const route = useRoute()
+const router = useRouter()
+
+const logout = () => {
+  localStorage.removeItem('user')
+  router.push('/login')
+}
 </script>
 
 <template>
@@ -150,7 +156,7 @@ const route = useRoute()
       </div>
     </main>
 
-    <button class="logout-button">
+    <button class="logout-button" @click="logout">
       <LogOutIcon color="#E53761" size="24" />
       Log out
     </button>

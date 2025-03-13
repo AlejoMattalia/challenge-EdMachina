@@ -6,6 +6,8 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import bcrypt from 'bcryptjs'
 import { toast } from 'vue3-toastify'
+import Input from '@/components/common/Input.vue'
+import InputPassword from '@/components/common/InputPassword.vue'
 
 const usernameOrEmail = ref('')
 const password = ref('')
@@ -76,29 +78,20 @@ const OnSubmit = async (e: Event) => {
     <h1 class="auth-title">INICIAR SESIÓN</h1>
 
     <form class="form" @submit.prevent="OnSubmit">
-      <div>
-        <label for="usernameOrEmail">Nombre de usuario o email</label>
-        <input
-          id="usernameOrEmail"
-          type="text"
-          class="input-auth"
-          v-model="usernameOrEmail"
-          :class="{ 'input-error': errors.username }"
-        />
-        <p v-if="errors.username" class="error">{{ errors.username }}</p>
-      </div>
-
-      <div>
-        <label for="password">Contraseña</label>
-        <input
-          id="password"
-          type="password"
-          class="input-auth"
-          v-model="password"
-          :class="{ 'input-error': errors.password }"
-        />
-        <p v-if="errors.password" class="error">{{ errors.password }}</p>
-      </div>
+      <Input
+        text="Nombre de usuario o email"
+        v-model="usernameOrEmail"
+        :errors="errors"
+        id="usernameOrEmail"
+        errorField="username"
+      />
+      <InputPassword
+        text="Contraseña"
+        v-model="password"
+        :errors="errors"
+        id="password"
+        errorField="password"
+      />
 
       <Button
         text="Iniciar sesión"
@@ -109,6 +102,10 @@ const OnSubmit = async (e: Event) => {
         type="submit"
       />
     </form>
+
+    <router-link to="/forgot-password" :style="{ textDecoration: 'none' }">
+      <p class="forgot-password">¿Olvidaste tu contraseña?</p>
+    </router-link>
 
     <p class="login-link">
       ¿No tenés una cuenta? <router-link class="link" to="/register">Registrarse</router-link>
@@ -165,11 +162,24 @@ const OnSubmit = async (e: Event) => {
     }
   }
 
-  .login-link {
+  .forgot-password {
     color: rgba(11, 28, 51, 0.7);
     font-weight: normal;
     font-size: 14px;
     margin-top: 30px;
+    cursor: pointer;
+
+    &:hover {
+      color: #3788e5;
+      text-decoration: underline;
+    }
+  }
+
+  .login-link {
+    color: rgba(11, 28, 51, 0.7);
+    font-weight: normal;
+    font-size: 14px;
+    margin-top: 10px;
 
     .link {
       color: #3788e5;

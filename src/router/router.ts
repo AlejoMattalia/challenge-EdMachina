@@ -1,4 +1,5 @@
 import Dashboard from '@/page/Dashboard.vue'
+import ForgotPassword from '@/page/ForgotPassword.vue'
 import Home from '@/page/Home.vue'
 import Login from '@/page/Login.vue'
 import NotFound from '@/page/NotFound.vue'
@@ -36,6 +37,7 @@ const routes = [
   { path: '/pet-profile', component: PetProfile, beforeEnter: requireAuth },
   { path: '/login', component: Login, meta: { layout: 'auth' } },
   { path: '/register', component: Register, meta: { layout: 'auth' } },
+  { path: '/forgot-password', component: ForgotPassword, meta: { layout: 'auth' } },
   { path: '/:pathMatch(.*)*', component: NotFound },
 ]
 

@@ -1,3 +1,6 @@
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+
 export const validateFormRegister = (
   username: string,
   email: string,
@@ -5,9 +8,6 @@ export const validateFormRegister = (
   confirmPassword: string,
 ) => {
   const errors: { [key: string]: string } = {}
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
 
   if (!username.trim()) {
     errors.username = 'El nombre de usuario es obligatorio.'
@@ -20,8 +20,38 @@ export const validateFormRegister = (
   if (!email.trim()) {
     errors.email = 'El email es obligatorio.'
   } else if (!emailRegex.test(email)) {
-    errors.email = 'El email no es válido.'
+    errors.email = 'Formato de email no valido.'
   }
+
+  if (!password.trim()) {
+    errors.password = 'La contraseña es obligatoria.'
+  } else if (!passwordRegex.test(password)) {
+    errors.password = 'Debe contener al menos 8 caracteres, una mayúscula, un número y un símbolo.'
+  }
+
+  if (!confirmPassword.trim()) {
+    errors.confirmPassword = 'Debe confirmar la contraseña.'
+  } else if (confirmPassword !== password) {
+    errors.confirmPassword = 'Las contraseñas no coinciden.'
+  }
+
+  return errors
+}
+
+export const validateEmail = (email: string) => {
+  const errors: { [key: string]: string } = {}
+
+  if (!email.trim()) {
+    errors.email = 'El email es obligatorio.'
+  } else if (!emailRegex.test(email)) {
+    errors.email = 'Formato de email no valido.'
+  }
+
+  return errors
+}
+
+export const validatePassword = (password: string, confirmPassword: string) => {
+  const errors: { [key: string]: string } = {}
 
   if (!password.trim()) {
     errors.password = 'La contraseña es obligatoria.'

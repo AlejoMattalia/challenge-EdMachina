@@ -7,6 +7,8 @@ import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
 import { db } from '@/firebaseConfig'
 import { toast } from 'vue3-toastify'
 import { useRouter } from 'vue-router'
+import Input from '@/components/common/Input.vue'
+import InputPassword from '@/components/common/InputPassword.vue'
 
 const username = ref('')
 const email = ref('')
@@ -91,53 +93,28 @@ const OnSubmit = async (e: Event) => {
     <h1 class="auth-title">REGISTRARSE</h1>
 
     <form class="form" @submit.prevent="OnSubmit">
-      <div>
-        <label for="username">Nombre de usuario</label>
-        <input
-          id="username"
-          type="text"
-          class="input-auth"
-          v-model="username"
-          :class="{ 'input-error': errors.username }"
-        />
-        <p v-if="errors.username" class="error">{{ errors.username }}</p>
-      </div>
-
-      <div>
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="text"
-          class="input-auth"
-          v-model="email"
-          :class="{ 'input-error': errors.email }"
-        />
-        <p v-if="errors.email" class="error">{{ errors.email }}</p>
-      </div>
-
-      <div>
-        <label for="password">Contraseña</label>
-        <input
-          id="password"
-          type="password"
-          class="input-auth"
-          v-model="password"
-          :class="{ 'input-error': errors.password }"
-        />
-        <p v-if="errors.password" class="error">{{ errors.password }}</p>
-      </div>
-
-      <div>
-        <label for="confirmPassword">Repetir contraseña</label>
-        <input
-          id="confirmPassword"
-          type="password"
-          class="input-auth"
-          v-model="confirmPassword"
-          :class="{ 'input-error': errors.confirmPassword }"
-        />
-        <p v-if="errors.confirmPassword" class="error">{{ errors.confirmPassword }}</p>
-      </div>
+      <Input
+        text="Nombre de usuario"
+        v-model="username"
+        :errors="errors"
+        id="username"
+        errorField="username"
+      />
+      <Input text="Email" v-model="email" :errors="errors" id="email" errorField="email" />
+      <InputPassword
+        text="Contraseña"
+        v-model="password"
+        :errors="errors"
+        id="password"
+        errorField="password"
+      />
+      <InputPassword
+        text="Repetir contraseña"
+        v-model="confirmPassword"
+        :errors="errors"
+        id="confirmPassword"
+        errorField="confirmPassword"
+      />
 
       <Button
         text="Registrarse"
