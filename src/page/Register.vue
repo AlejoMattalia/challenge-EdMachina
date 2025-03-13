@@ -80,8 +80,9 @@ const OnSubmit = async (e: Event) => {
     password.value = ''
     confirmPassword.value = ''
 
-    //redireccionar al home con vue router
-    router.push('/')
+    setTimeout(() => {
+      router.push('/')
+    }, 2500)
   } catch (error) {
     toast.error('Error al registrarte')
   }

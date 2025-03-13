@@ -51,16 +51,7 @@ const OnSubmitPassword = async (e: Event) => {
     // Obtener usuario a través del email
     const emailQuery = query(userRef, where('email', '==', email.value))
     const emailSnapshot = await getDocs(emailQuery)
-    const userData = emailSnapshot.docs[0].data()
     const userId = emailSnapshot.docs[0].id
-
-    const passwordMatch = await bcrypt.compare(password.value, userData.password)
-
-    // Verificar si la nueva contraseña es igual a la actual
-    if (passwordMatch) {
-      errors.value.password = 'La nueva contraseña debe ser diferente a la actual'
-      return
-    }
 
     // Actualizar la contraseña
     const newPassword = await bcrypt.hash(password.value, 10)
@@ -70,7 +61,11 @@ const OnSubmitPassword = async (e: Event) => {
     })
 
     toast.success('Contraseña actualizada correctamente')
-    router.push('/login')
+
+    //tardar dos segundos para redirigir
+    setTimeout(() => {
+      router.push('/login')
+    }, 2500)
   } catch (error) {
     console.error(error)
     toast.error('Error al actualizar la contraseña')

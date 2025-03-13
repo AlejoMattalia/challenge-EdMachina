@@ -65,7 +65,9 @@ const OnSubmit = async (e: Event) => {
       }),
     )
 
-    router.push('/')
+    setTimeout(() => {
+      router.push('/')
+    }, 2500)
   } catch (error) {
     console.log(error)
     errors.value.general = 'Ocurrió un error, intenta nuevamente'
