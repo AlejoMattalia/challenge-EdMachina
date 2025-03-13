@@ -18,7 +18,7 @@ const categories = ref<Category[]>([])
 const seriesData = ref<Data[]>([])
 
 const selectedValueType = ref('stress')
-const selectValueDate = ref('Weekly')
+const selectValueDate = ref('Monthly')
 
 const arrayData = ref<number[]>([])
 const arrayCategory = ref<string[]>([])

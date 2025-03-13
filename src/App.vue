@@ -5,11 +5,10 @@ import Sidebar from '@/components/layout/Sidebar.vue'
 import Navbar from './components/layout/Navbar.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import 'vue3-toastify/dist/index.css'
 
 const route = useRoute()
 const isAuthLayout = computed(() => route.meta.layout === 'auth')
-
-console.log(isAuthLayout)
 </script>
 
 <template>
@@ -60,7 +59,6 @@ console.log(isAuthLayout)
     border: 1px solid #dae3f8;
     border-radius: 20px;
     width: 600px;
-    min-height: 600px;
   }
 }
 </style>

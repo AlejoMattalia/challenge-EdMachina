@@ -4,6 +4,7 @@ import NotificationIcon from '../icons/NotificationIcon.vue'
 import type { Notification } from '@/types/NotificationInterface'
 import { useFetch } from '@/composables/useFetch'
 import Error from './Error.vue'
+import { NSpin } from 'naive-ui'
 
 const openDropdown = ref<boolean>(false)
 

@@ -2,6 +2,11 @@
 import { ref } from 'vue'
 import Button from '@/components/common/Button.vue'
 import { validateFormRegister } from '@/service/ValidateForm'
+import bcrypt from 'bcryptjs'
+import { addDoc, collection, getDocs, query, where } from 'firebase/firestore'
+import { db } from '@/firebaseConfig'
+import { toast } from 'vue3-toastify'
+import { useRouter } from 'vue-router'
 
 const username = ref('')
 const email = ref('')
@@ -9,6 +14,7 @@ const password = ref('')
 const confirmPassword = ref('')
 const errors = ref<{ [key: string]: string }>({})
 
+const router = useRouter()
 const OnSubmit = async (e: Event) => {
   try {
     e.preventDefault()
@@ -22,16 +28,60 @@ const OnSubmit = async (e: Event) => {
 
     if (Object.keys(errors.value).length !== 0) return
 
+    //verificar si el email ya esta registrado
+    const userRef = collection(db, 'user')
+
+    // Verificar si el username ya está registrado
+    const usernameQuery = query(userRef, where('username', '==', username.value))
+    const usernameSnapshot = await getDocs(usernameQuery)
+
+    if (!usernameSnapshot.empty) {
+      errors.value.username = 'El nombre de usuario ya está registrado'
+      return
+    }
+
+    // Verificar si el email ya está registrado
+    const emailQuery = query(userRef, where('email', '==', email.value))
+    const emailSnapshot = await getDocs(emailQuery)
+
+    if (!emailSnapshot.empty) {
+      errors.value.email = 'El email ya está registrado'
+      return
+    }
+
+    // Encriptar la contraseña
+    const salt = await bcrypt.genSalt(10)
+    const hashedPassword = await bcrypt.hash(password.value, salt)
+
     const formData = {
       username: username.value,
       email: email.value,
-      password: password.value,
-      confirmPassword: confirmPassword.value,
+      password: hashedPassword,
     }
 
-    console.log('Formulario enviado:', formData)
+    //Enviar for a firebase
+    await addDoc(collection(db, 'user'), formData)
+
+    toast.success('Registro exitoso')
+
+    //guardar en localstorage
+    localStorage.setItem(
+      'user',
+      JSON.stringify({
+        username: username.value,
+        email: email.value,
+      }),
+    )
+
+    username.value = ''
+    email.value = ''
+    password.value = ''
+    confirmPassword.value = ''
+
+    //redireccionar al home con vue router
+    router.push('/')
   } catch (error) {
-    console.error('Error en el registro:', error)
+    toast.error('Error al registrarte')
   }
 }
 </script>
@@ -98,6 +148,10 @@ const OnSubmit = async (e: Event) => {
         type="submit"
       />
     </form>
+
+    <p class="register-link">
+      ¿Ya tienes una cuenta? <router-link class="link" to="/login">Iniciar sesión</router-link>
+    </p>
   </section>
 </template>
 
@@ -147,6 +201,17 @@ const OnSubmit = async (e: Event) => {
       color: #e53761;
       font-size: 12px;
       margin-top: 4px;
+    }
+  }
+
+  .register-link {
+    color: rgba(11, 28, 51, 0.7);
+    font-weight: normal;
+    font-size: 14px;
+    margin-top: 30px;
+
+    .link {
+      color: #3788e5;
     }
   }
 }
